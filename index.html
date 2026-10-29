@@ -1,0 +1,2129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f4ec">
+  <meta name="description" content="Rooted — a community concept for keeping culture, memories, and meaningful connections close, wherever life takes you.">
+  <title>Rooted — A little closer to home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #f7f4ec;
+      --surface: #fffdf8;
+      --ink: #252b24;
+      --muted: #7a7d70;
+      --line: #e5e0d4;
+      --green: #3b6048;
+      --green-dark: #294a35;
+      --green-pale: #e6ecdf;
+      --clay: #c7795d;
+      --clay-pale: #f3e4da;
+      --yellow-pale: #f1e9c9;
+      --lavender: #eae5f1;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", sans-serif;
+      --mono: "DM Mono", monospace;
+      --radius: 4px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    button:focus-visible, a:focus-visible, input:focus-visible,
+    textarea:focus-visible, select:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 3px;
+    }
+
+    ::selection { background: var(--green-pale); color: var(--green-dark); }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 224px minmax(0, 1fr);
+    }
+
+    /* Sidebar */
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 19px 20px;
+      background: #f1eee5;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 0 7px;
+      margin-bottom: 39px;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--green);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+      border-radius: 50% 50% 50% 4px;
+      font-family: var(--serif);
+    }
+
+    .brand-name {
+      font-family: var(--serif);
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: -.5px;
+    }
+
+    .brand-tag {
+      margin-top: 5px;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .side-label {
+      margin: 0 8px 10px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 11px 10px;
+      background: transparent;
+      border: 0;
+      border-radius: var(--radius);
+      text-align: left;
+      font-size: 12px;
+      color: #64685e;
+      cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+
+    .nav-item:hover { background: #e8e5db; color: var(--ink); }
+
+    .nav-item.active {
+      background: var(--green-pale);
+      color: var(--green-dark);
+      font-weight: 600;
+    }
+
+    .nav-icon {
+      width: 19px;
+      text-align: center;
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    .side-spacer { flex: 1; }
+
+    .side-note {
+      background: var(--surface);
+      padding: 15px;
+      border: 1px solid var(--line);
+      margin-bottom: 19px;
+    }
+
+    .side-note-mark {
+      color: var(--green);
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .side-note p {
+      margin: 0;
+      color: #65685e;
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .side-note small {
+      display: block;
+      margin-top: 10px;
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--muted);
+    }
+
+    .profile-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 6px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .avatar {
+      width: 35px;
+      height: 35px;
+      flex: 0 0 35px;
+      border-radius: 50%;
+      background: var(--clay-pale);
+      color: #8d4e37;
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-size: 16px;
+    }
+
+    .profile-name { font-size: 11px; font-weight: 600; }
+    .profile-sub { font-size: 10px; color: var(--muted); }
+
+    /* Main area */
+
+    .main {
+      min-width: 0;
+    }
+
+    .topbar {
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 43px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 244, 236, .93);
+      position: sticky;
+      top: 0;
+      z-index: 8;
+      backdrop-filter: blur(12px);
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .5px;
+    }
+
+    .top-actions { display: flex; gap: 10px; align-items: center; }
+
+    .icon-button {
+      display: grid;
+      place-items: center;
+      width: 35px;
+      height: 35px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .icon-button:hover { border-color: var(--green); }
+
+    .content {
+      width: min(1120px, calc(100% - 86px));
+      margin: 0 auto;
+      padding: 38px 0 75px;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; animation: enter .25s ease; }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    .page-title {
+      margin: 10px 0 10px;
+      font-family: var(--serif);
+      font-size: clamp(37px, 4.3vw, 55px);
+      font-weight: 500;
+      line-height: 1.13;
+      letter-spacing: -1.3px;
+    }
+
+    .page-description {
+      max-width: 550px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+      margin-bottom: 27px;
+    }
+
+    .serif { font-family: var(--serif); }
+    .muted { color: var(--muted); }
+    .mono { font-family: var(--mono); font-size: 9px; letter-spacing: .8px; }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 15px;
+      background: var(--green);
+      color: white;
+      border: 1px solid var(--green);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      transition: background .18s, color .18s;
+    }
+
+    .button:hover { background: var(--green-dark); }
+
+    .button.outline {
+      background: transparent;
+      color: var(--green);
+    }
+
+    .button.outline:hover {
+      background: var(--green-pale);
+    }
+
+    .button:disabled { opacity: .45; cursor: not-allowed; }
+
+    .button.small { padding: 8px 11px; font-size: 10px; }
+
+    .text-button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--green);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .text-button:hover { text-decoration: underline; }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      min-width: 0;
+    }
+
+    .panel-pad { padding: 22px; }
+
+    .panel-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 17px;
+    }
+
+    .panel-heading h2, .panel-heading h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 22px;
+    }
+
+    .divider { border: 0; border-top: 1px solid var(--line); margin: 20px 0; }
+
+    /* Dashboard */
+
+    .welcome {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 30px;
+      align-items: stretch;
+      margin-bottom: 25px;
+    }
+
+    .welcome-copy {
+      padding: 24px 0 23px;
+    }
+
+    .welcome h1 {
+      margin: 12px 0 13px;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(42px, 5vw, 61px);
+      letter-spacing: -1.9px;
+      line-height: 1.09;
+    }
+
+    .welcome h1 em { color: var(--green); font-weight: 500; }
+
+    .welcome-copy p {
+      max-width: 440px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .welcome-art {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+      background: #e6e9da;
+      border: 1px solid #dce1d1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .art-label {
+      position: relative;
+      z-index: 1;
+      font-family: var(--mono);
+      color: #58684f;
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+
+    .art-message {
+      position: relative;
+      z-index: 1;
+      max-width: 230px;
+      font-family: var(--serif);
+      font-size: 26px;
+      line-height: 1.35;
+      color: #354b36;
+    }
+
+    .art-message em { color: #a45d43; }
+
+    .leaf-art {
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      right: -16px;
+      top: 18px;
+      opacity: .55;
+      transform: rotate(-12deg);
+    }
+
+    .leaf-art svg { width: 100%; height: 100%; }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(250px, .75fr);
+      gap: 23px;
+      align-items: start;
+    }
+
+    .feed { display: grid; gap: 14px; }
+
+    .post {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 19px;
+    }
+
+    .post-top {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 14px;
+    }
+
+    .post-author { font-size: 11px; font-weight: 600; }
+    .post-meta { color: var(--muted); font-size: 10px; }
+    .post-top-info { flex: 1; min-width: 0; }
+    .post-country { color: var(--green); font-size: 9px; font-family: var(--mono); }
+
+    .post-text {
+      font-size: 12px;
+      line-height: 1.9;
+      color: #55594f;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      margin-bottom: 15px;
+    }
+
+    .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+
+    .pill {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green-dark);
+      padding: 4px 8px;
+      font-family: var(--mono);
+      font-size: 9px;
+    }
+
+    .post-footer {
+      display: flex;
+      align-items: center;
+      gap: 17px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    .like-button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 0;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .like-button.liked { color: #a34f48; }
+    .post-footer .post-meta { margin-left: auto; }
+
+    .side-stack { display: grid; gap: 17px; }
+
+    .culture-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .culture-symbol {
+      width: 37px;
+      height: 37px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 13px;
+      background: var(--clay-pale);
+      color: #94583f;
+      font-family: var(--serif);
+      font-size: 19px;
+    }
+
+    .culture-card h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 7px;
+    }
+
+    .culture-card p {
+      font-size: 11px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .tiny-list { display: grid; gap: 0; }
+    .tiny-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+    }
+
+    .tiny-row span:last-child { color: var(--muted); }
+
+    .notice {
+      padding: 13px 15px;
+      background: #f2ecda;
+      border-left: 3px solid #bca66c;
+      color: #6e6246;
+      font-size: 11px;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    /* Community */
+
+    .community-tools {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 19px;
+    }
+
+    .search-input, .select-input, .text-input, .text-area {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 11px 12px;
+      font-size: 12px;
+    }
+
+    .search-input { flex: 1; min-width: 0; }
+    .select-input { max-width: 200px; }
+    .text-area { resize: vertical; min-height: 105px; line-height: 1.8; }
+
+    .community-list { display: grid; gap: 14px; }
+
+    .composer { margin-bottom: 19px; }
+    .composer textarea { margin-bottom: 10px; }
+
+    .composer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .form-row { display: grid; gap: 7px; margin-bottom: 15px; }
+    .form-label { font-size: 11px; font-weight: 600; }
+    .help-text { font-size: 10px; color: var(--muted); line-height: 1.7; }
+
+    /* Cultural profile */
+
+    .profile-hero {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 23px;
+      align-items: start;
+      padding: 27px;
+      background: var(--green-pale);
+      border: 1px solid #d6dfd0;
+      margin-bottom: 22px;
+    }
+
+    .profile-avatar {
+      width: 75px;
+      height: 75px;
+      display: grid;
+      place-items: center;
+      background: var(--green);
+      color: white;
+      border-radius: 50%;
+      font-family: var(--serif);
+      font-size: 34px;
+    }
+
+    .profile-hero h2 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 31px;
+      margin: 5px 0 7px;
+    }
+
+    .profile-hero p {
+      color: #5d6b5b;
+      font-size: 12px;
+      line-height: 1.8;
+      max-width: 540px;
+      margin-bottom: 14px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .profile-field {
+      padding: 17px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .profile-field h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 19px;
+      margin-bottom: 9px;
+    }
+
+    .profile-field p {
+      font-size: 12px;
+      color: #5f6359;
+      line-height: 1.8;
+      margin-bottom: 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    /* Time capsule */
+
+    .capsule-hero {
+      background: var(--yellow-pale);
+      border: 1px solid #e4dbb7;
+      padding: 25px;
+      margin-bottom: 22px;
+    }
+
+    .capsule-hero h2 {
+      max-width: 520px;
+      font-family: var(--serif);
+      font-size: 32px;
+      line-height: 1.3;
+      font-weight: 500;
+      margin: 8px 0;
+    }
+
+    .capsule-hero p {
+      max-width: 500px;
+      color: #766d4c;
+      font-size: 12px;
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+
+    .capsule-grid { display: grid; gap: 12px; }
+
+    .capsule-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .capsule-item h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 7px;
+    }
+
+    .capsule-item p {
+      color: #606359;
+      font-size: 12px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      margin-bottom: 9px;
+    }
+
+    .capsule-state {
+      align-self: start;
+      padding: 5px 8px;
+      background: var(--green-pale);
+      color: var(--green-dark);
+      font-family: var(--mono);
+      font-size: 9px;
+      white-space: nowrap;
+    }
+
+    /* Translation */
+
+    .translation-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .language-panel {
+      min-width: 0;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .language-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line);
+      background: #faf8f1;
+    }
+
+    .language-header label { font-size: 11px; font-weight: 600; }
+    .language-header select {
+      max-width: 150px;
+      border: 0;
+      background: transparent;
+      color: var(--green);
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .language-panel textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 16px;
+      resize: vertical;
+      border: 0;
+      background: transparent;
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.9;
+      color: var(--ink);
+    }
+
+    .language-panel textarea:focus { outline: none; }
+
+    .language-panel textarea::placeholder { color: #a3a397; }
+
+    .translate-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 17px;
+    }
+
+    .translation-warning {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: #f1eee5;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    /* Settings */
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .settings-card {
+      padding: 21px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .settings-card h3 {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .settings-card > p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 13px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .toggle-row strong { display: block; font-size: 11px; }
+    .toggle-row small { display: block; color: var(--muted); font-size: 10px; margin-top: 3px; }
+
+    .toggle {
+      position: relative;
+      width: 38px;
+      height: 22px;
+      flex: 0 0 38px;
+      border: 0;
+      background: #d5d2c8;
+      border-radius: 20px;
+      cursor: pointer;
+      padding: 3px;
+    }
+
+    .toggle::after {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: white;
+      transition: transform .18s;
+    }
+
+    .toggle[aria-checked="true"] { background: var(--green); }
+    .toggle[aria-checked="true"]::after { transform: translateX(16px); }
+
+    /* Empty states and toast */
+
+    .empty-state {
+      padding: 36px 20px;
+      border: 1px dashed var(--line);
+      text-align: center;
+      background: rgba(255, 253, 248, .5);
+    }
+
+    .empty-state h3 {
+      font-family: var(--serif);
+      font-size: 23px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .empty-state p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+      max-width: 350px;
+      margin: 0 auto 15px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      z-index: 50;
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      pointer-events: none;
+      max-width: calc(100% - 30px);
+      padding: 12px 17px;
+      background: var(--ink);
+      color: white;
+      font-size: 11px;
+      line-height: 1.6;
+      transition: opacity .2s, transform .2s;
+      box-shadow: 0 8px 30px rgba(0,0,0,.12);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 18px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 1020px) {
+      .app { grid-template-columns: 190px minmax(0, 1fr); }
+      .sidebar { padding-inline: 13px; }
+      .topbar { padding-inline: 27px; }
+      .content { width: calc(100% - 54px); }
+      .welcome { gap: 18px; }
+      .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
+      .side-stack { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .app { display: block; }
+      .sidebar {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        padding: 7px 6px calc(7px + env(safe-area-inset-bottom));
+        border-right: 0;
+        border-top: 1px solid var(--line);
+        background: #f6f3eb;
+      }
+
+      .brand, .side-label, .side-spacer, .side-note, .profile-mini { display: none; }
+
+      .nav-list {
+        display: flex;
+        justify-content: space-around;
+        gap: 0;
+      }
+
+      .nav-item {
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        gap: 3px;
+        padding: 7px 2px;
+        font-size: 9px;
+        text-align: center;
+      }
+
+      .nav-icon { font-size: 18px; }
+      .topbar { height: 58px; padding-inline: 18px; }
+      .content { width: calc(100% - 36px); padding-top: 28px; padding-bottom: 110px; }
+      .welcome { grid-template-columns: 1fr; }
+      .welcome-copy { padding: 5px 0 10px; }
+      .welcome-art { min-height: 215px; }
+      .side-stack { grid-template-columns: 1fr; }
+      .translation-box { grid-template-columns: 1fr; }
+      .settings-layout, .profile-grid { grid-template-columns: 1fr; }
+      .page-title { font-size: 42px; }
+      .page-description { font-size: 12px; }
+      .panel-pad { padding: 17px; }
+      .capsule-item { grid-template-columns: 1fr; }
+      .capsule-state { justify-self: start; }
+      footer { padding-bottom: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <a class="brand" href="#home" aria-label="Rooted home">
+      <span class="brand-mark">r</span>
+      <span>
+        <span class="brand-name">rooted</span>
+        <span class="brand-tag">Wherever life takes you</span>
+      </span>
+    </a>
+
+    <div class="side-label">YOUR SPACE</div>
+
+    <nav class="nav-list" aria-label="Application navigation">
+      <button class="nav-item active" data-page="home">
+        <span class="nav-icon">⌂</span> Home
+      </button>
+      <button class="nav-item" data-page="community">
+        <span class="nav-icon">◌</span> Community
+      </button>
+      <button class="nav-item" data-page="culture">
+        <span class="nav-icon">⌘</span> My culture
+      </button>
+      <button class="nav-item" data-page="capsules">
+        <span class="nav-icon">✳</span> Time capsules
+      </button>
+      <button class="nav-item" data-page="translate">
+        <span class="nav-icon">文</span> Translate
+      </button>
+      <button class="nav-item" data-page="settings">
+        <span class="nav-icon">⚙</span> Settings
+      </button>
+    </nav>
+
+    <div class="side-spacer"></div>
+
+    <div class="side-note">
+      <div class="side-note-mark">“</div>
+      <p>Home is more than a place on a map.</p>
+      <small>A THOUGHT TO KEEP</small>
+    </div>
+
+    <div class="profile-mini">
+      <div class="avatar" id="sideAvatar">A</div>
+      <div>
+        <div class="profile-name" id="sideName">Your space</div>
+        <div class="profile-sub">Personal profile</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumb" id="breadcrumb">YOUR SPACE / HOME</div>
+      <div class="top-actions">
+        <button class="icon-button" id="quickCapsule" title="Write a time capsule" aria-label="Write a time capsule">✳</button>
+        <button class="icon-button" id="quickSettings" title="Open settings" aria-label="Open settings">⚙</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- HOME -->
+
+      <section class="page active" id="page-home">
+        <div class="welcome">
+          <div class="welcome-copy">
+            <div class="eyebrow">A SPACE THAT TRAVELS WITH YOU</div>
+            <h1>A little closer<br>to <em>home.</em></h1>
+            <p>
+              Keep the things that make you feel connected. Share a memory,
+              discover someone else's traditions, or save a little piece of
+              today for the person you'll become.
+            </p>
+            <button class="button" data-go="community">Explore the community ↗</button>
+          </div>
+
+          <div class="welcome-art">
+            <div class="art-label">A NOTE FROM ROOTED / 001</div>
+            <div class="leaf-art" aria-hidden="true">
+              <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M110 218C112 161 109 109 117 13" stroke="#627D57" stroke-width="2"/>
+                <path d="M113 174C68 169 37 139 30 102C69 106 104 132 113 174Z" fill="#B3C7A4" stroke="#627D57" stroke-width="1.5"/>
+                <path d="M113 174L30 102" stroke="#627D57" stroke-width="1"/>
+                <path d="M113 143C149 133 174 106 178 72C145 77 121 105 113 143Z" fill="#91AA80" stroke="#627D57" stroke-width="1.5"/>
+                <path d="M113 143L178 72" stroke="#627D57" stroke-width="1"/>
+                <path d="M115 100C84 86 72 58 81 29C105 45 117 72 115 100Z" fill="#D0D9B9" stroke="#627D57" stroke-width="1.5"/>
+                <path d="M115 100L81 29" stroke="#627D57" stroke-width="1"/>
+                <path d="M110 191C145 183 165 164 176 139C144 142 120 163 110 191Z" fill="#B3C7A4" stroke="#627D57" stroke-width="1.5"/>
+                <path d="M110 191L176 139" stroke="#627D57" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="art-message">Some things travel with you. <em>Keep them close.</em></div>
+          </div>
+        </div>
+
+        <div class="notice">
+          This is a local prototype. Community posts are examples, not messages
+          from real users. Your personal entries stay in this browser.
+        </div>
+
+        <div class="dashboard-grid">
+          <div>
+            <div class="panel-heading">
+              <h2>From the community</h2>
+              <button class="text-button" data-go="community">See all ↗</button>
+            </div>
+            <div class="feed" id="homeFeed"></div>
+          </div>
+
+          <div class="side-stack">
+            <div class="culture-card">
+              <div class="culture-symbol">⌘</div>
+              <div class="eyebrow">YOUR STORY</div>
+              <h3>What feels like home?</h3>
+              <p>
+                Save the traditions, words, places, and little details that
+                you want to carry with you.
+              </p>
+              <button class="text-button" data-go="culture">Build your culture profile ↗</button>
+            </div>
+
+            <div class="panel panel-pad">
+              <div class="panel-heading">
+                <h3>Little reminders</h3>
+                <span class="mono muted">01—03</span>
+              </div>
+              <div class="tiny-list">
+                <div class="tiny-row"><span>Save a memory</span><span>↗</span></div>
+                <div class="tiny-row"><span>Learn a new word</span><span>↗</span></div>
+                <div class="tiny-row"><span>Ask about a tradition</span><span>↗</span></div>
+              </div>
+              <hr class="divider">
+              <button class="button outline" data-go="capsules">Write to your future self</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMUNITY -->
+
+      <section class="page" id="page-community">
+        <div class="eyebrow">PEOPLE, PLACES & STORIES</div>
+        <h1 class="page-title">A world of little connections.</h1>
+        <p class="page-description">
+          Share something from your world, read other people's experiences,
+          and discover the everyday traditions that make different places feel
+          like home.
+        </p>
+
+        <div class="notice">
+          Example posts are provided to demonstrate the interface. Posts you
+          create are saved only in your current browser and are not published
+          to other people.
+        </div>
+
+        <div class="panel panel-pad composer">
+          <div class="panel-heading">
+            <h2>Share a little piece of your world</h2>
+            <span class="mono muted">YOUR POST</span>
+          </div>
+
+          <form id="postForm">
+            <div class="form-row">
+              <label class="form-label" for="postText">What's on your mind?</label>
+              <textarea class="text-area" id="postText" maxlength="800" required
+                placeholder="A tradition you miss, a word you love, a memory you want to share..."></textarea>
+            </div>
+
+            <div class="composer-bottom">
+              <div style="display:flex; gap:9px; flex-wrap:wrap;">
+                <select class="select-input" id="postTopic" aria-label="Post topic">
+                  <option value="Traditions">Traditions</option>
+                  <option value="Language">Language</option>
+                  <option value="Food">Food</option>
+                  <option value="Memories">Memories</option>
+                  <option value="Everyday life">Everyday life</option>
+                </select>
+                <input class="text-input" id="postCountry" maxlength="50"
+                  placeholder="Country or place (optional)" style="max-width:220px">
+              </div>
+              <button class="button" type="submit">Save post ↗</button>
+            </div>
+            <p class="help-text" style="margin:12px 0 0;">
+              Keep personal details private. This demo does not publish your post online.
+            </p>
+          </form>
+        </div>
+
+        <div class="community-tools">
+          <input class="search-input" id="communitySearch" type="search"
+            placeholder="Search stories, traditions, or places..." aria-label="Search community posts">
+          <select class="select-input" id="communityFilter" aria-label="Filter by topic">
+            <option value="all">All topics</option>
+            <option value="Traditions">Traditions</option>
+            <option value="Language">Language</option>
+            <option value="Food">Food</option>
+            <option value="Memories">Memories</option>
+            <option value="Everyday life">Everyday life</option>
+          </select>
+        </div>
+
+        <div class="community-list" id="communityFeed"></div>
+      </section>
+
+      <!-- CULTURE PROFILE -->
+
+      <section class="page" id="page-culture">
+        <div class="eyebrow">THE THINGS YOU CARRY</div>
+        <h1 class="page-title">Your culture, in your own words.</h1>
+        <p class="page-description">
+          Culture is personal. This is a space for the details that matter to
+          you, whether they're connected to a country, a family, a language,
+          or a memory.
+        </p>
+
+        <div class="profile-hero">
+          <div class="profile-avatar" id="cultureAvatar">Y</div>
+          <div>
+            <div class="eyebrow">YOUR CULTURE PROFILE</div>
+            <h2 id="cultureDisplayName">Your story</h2>
+            <p id="cultureSummary">
+              A place to keep the pieces of your story that you choose to share.
+            </p>
+            <button class="button outline" id="editCulture">Edit my profile</button>
+          </div>
+        </div>
+
+        <div class="profile-grid" id="cultureFields"></div>
+
+        <div class="panel panel-pad" id="cultureEditor" hidden style="margin-top:20px;">
+          <div class="panel-heading">
+            <h2>Edit your story</h2>
+            <button class="text-button" id="cancelCulture">Cancel</button>
+          </div>
+
+          <form id="cultureForm">
+            <div class="form-row">
+              <label class="form-label" for="cultureName">Name or nickname</label>
+              <input class="text-input" id="cultureName" maxlength="60" placeholder="What should we call you?">
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="cultureHome">Places that feel like home</label>
+              <input class="text-input" id="cultureHome" maxlength="160" placeholder="A country, city, or more than one place">
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="cultureLanguages">Languages and expressions</label>
+              <textarea class="text-area" id="cultureLanguages" maxlength="500" placeholder="Languages you speak, words you love, expressions that matter to you"></textarea>
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="cultureTraditions">Traditions I want to keep</label>
+              <textarea class="text-area" id="cultureTraditions" maxlength="500" placeholder="Celebrations, recipes, customs, family rituals..."></textarea>
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="cultureMemory">A memory that stays with me</label>
+              <textarea class="text-area" id="cultureMemory" maxlength="700" placeholder="A place, a sound, a moment, a feeling..."></textarea>
+            </div>
+
+            <button class="button" type="submit">Save my profile</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- TIME CAPSULES -->
+
+      <section class="page" id="page-capsules">
+        <div class="eyebrow">FOR THE PERSON YOU'LL BECOME</div>
+        <h1 class="page-title">Leave yourself a little something.</h1>
+        <p class="page-description">
+          Write down a memory, a hope, or something you don't want to forget.
+          Give it a future date and come back to it when the time arrives.
+        </p>
+
+        <div class="capsule-hero">
+          <div class="eyebrow">A SMALL ACT OF REMEMBERING</div>
+          <h2>Today's ordinary moments can become tomorrow's memories.</h2>
+          <p>
+            Your capsules are saved on this device. This prototype cannot send
+            future notifications or securely lock entries until their opening date.
+          </p>
+        </div>
+
+        <div class="panel panel-pad" style="margin-bottom:22px;">
+          <div class="panel-heading">
+            <h2>Write a time capsule</h2>
+            <span class="mono muted">NEW ENTRY</span>
+          </div>
+
+          <form id="capsuleForm">
+            <div class="form-row">
+              <label class="form-label" for="capsuleTitle">Give this memory a title</label>
+              <input class="text-input" id="capsuleTitle" maxlength="100" required
+                placeholder="A letter to my future self">
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="capsuleText">What do you want to remember?</label>
+              <textarea class="text-area" id="capsuleText" maxlength="3000" required
+                placeholder="Write freely. This is for you."></textarea>
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="capsuleDate">When would you like to revisit it?</label>
+              <input class="text-input" id="capsuleDate" type="date" required style="max-width:250px;">
+              <span class="help-text">This date is a reminder, not a security lock.</span>
+            </div>
+
+            <button class="button" type="submit">Save this capsule ↗</button>
+          </form>
+        </div>
+
+        <div class="panel-heading">
+          <h2>Your capsules</h2>
+          <span class="mono muted" id="capsuleCount">00 ENTRIES</span>
+        </div>
+
+        <div class="capsule-grid" id="capsuleList"></div>
+      </section>
+
+      <!-- TRANSLATION -->
+
+      <section class="page" id="page-translate">
+        <div class="eyebrow">LANGUAGE IS A KIND OF HOME</div>
+        <h1 class="page-title">Find the words.</h1>
+        <p class="page-description">
+          A place to prepare a phrase, message, or expression for another
+          language. This demo provides a phrasebook and a copyable workspace.
+        </p>
+
+        <div class="notice">
+          This prototype does not call a translation service. It cannot
+          reliably translate arbitrary text. Use the phrasebook below for
+          its supported examples, or connect a translation API for real
+          translations in a production version.
+        </div>
+
+        <div class="translation-box">
+          <div class="language-panel">
+            <div class="language-header">
+              <label for="sourceLanguage">From</label>
+              <select id="sourceLanguage">
+                <option value="en">English</option>
+                <option value="ar">Arabic</option>
+                <option value="tr">Turkish</option>
+                <option value="fr">French</option>
+              </select>
+            </div>
+            <textarea id="sourceText" maxlength="1500" placeholder="Type a phrase or message..."></textarea>
+          </div>
+
+          <div class="language-panel">
+            <div class="language-header">
+              <label for="targetLanguage">To</label>
+              <select id="targetLanguage">
+                <option value="ar">Arabic</option>
+                <option value="en">English</option>
+                <option value="tr">Turkish</option>
+                <option value="fr">French</option>
+              </select>
+            </div>
+            <textarea id="targetText" maxlength="1500" placeholder="Your phrasebook result will appear here..."></textarea>
+          </div>
+        </div>
+
+        <div class="translate-actions">
+          <button class="button" id="translateButton">Find in phrasebook ↗</button>
+          <button class="button outline" id="swapLanguages">Swap languages ⇄</button>
+          <button class="button outline" id="copyTranslation">Copy result</button>
+        </div>
+
+        <div class="panel panel-pad" style="margin-top:25px;">
+          <div class="panel-heading">
+            <h2>Useful everyday phrases</h2>
+            <span class="mono muted">EXAMPLES</span>
+          </div>
+
+          <div class="tiny-list" id="phrasebook">
+            <div class="tiny-row">
+              <span>How are you?</span>
+              <button class="text-button" data-phrase="How are you?">Use phrase ↗</button>
+            </div>
+            <div class="tiny-row">
+              <span>Thank you</span>
+              <button class="text-button" data-phrase="Thank you">Use phrase ↗</button>
+            </div>
+            <div class="tiny-row">
+              <span>I miss home</span>
+              <button class="text-button" data-phrase="I miss home">Use phrase ↗</button>
+            </div>
+            <div class="tiny-row">
+              <span>It's nice to meet you</span>
+              <button class="text-button" data-phrase="It's nice to meet you">Use phrase ↗</button>
+            </div>
+            <div class="tiny-row">
+              <span>Could you help me?</span>
+              <button class="text-button" data-phrase="Could you help me?">Use phrase ↗</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+
+      <section class="page" id="page-settings">
+        <div class="eyebrow">YOUR SPACE, YOUR CHOICES</div>
+        <h1 class="page-title">Settings.</h1>
+        <p class="page-description">
+          Manage your local prototype data and decide what stays on this device.
+        </p>
+
+        <div class="settings-layout">
+          <div class="settings-card">
+            <h3>Privacy & data</h3>
+            <p>
+              Your personal profile, saved capsules, and posts you create
+              are stored in this browser. They are not shared with other users.
+            </p>
+
+            <div class="toggle-row">
+              <div>
+                <strong>Local data storage</strong>
+                <small>Remember your entries on this device</small>
+              </div>
+              <button class="toggle" id="storageToggle" role="switch" aria-checked="true"
+                aria-label="Toggle local data storage"></button>
+            </div>
+
+            <button class="button outline" id="exportData" style="margin-top:15px;">Export my data</button>
+            <button class="button outline" id="deleteData" style="margin-top:10px;">Clear personal data</button>
+          </div>
+
+          <div class="settings-card">
+            <h3>About Rooted</h3>
+            <p>
+              Rooted is a concept for a culturally connected community for
+              people who live away from places they consider home.
+            </p>
+            <div class="tiny-list">
+              <div class="tiny-row"><span>Version</span><span>Prototype 1.0</span></div>
+              <div class="tiny-row"><span>Community backend</span><span>Not connected</span></div>
+              <div class="tiny-row"><span>Translation service</span><span>Not connected</span></div>
+              <div class="tiny-row"><span>Account authentication</span><span>Not connected</span></div>
+            </div>
+            <hr class="divider">
+            <p>
+              The next step would be connecting a secure backend so people
+              can create accounts, control visibility, and interact across devices.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-row">
+          <span>Rooted — a concept about the places and people we carry with us.</span>
+          <span>Prototype · Personal data stays in this browser</span>
+        </div>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "rooted-prototype-v1";
+
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => [...document.querySelectorAll(selector)];
+
+  const pageNames = {
+    home: "HOME",
+    community: "COMMUNITY",
+    culture: "MY CULTURE",
+    capsules: "TIME CAPSULES",
+    translate: "TRANSLATE",
+    settings: "SETTINGS"
+  };
+
+  const samplePosts = [
+    {
+      id: "sample-1",
+      author: "Mira",
+      initial: "M",
+      country: "Lebanon",
+      topic: "Food",
+      age: "Example story",
+      text: "There are certain smells that take me straight back to my grandmother's kitchen. I never realised how much a recipe could hold until I started living somewhere else.",
+      tags: ["Food", "Memories"],
+      sample: true,
+      likes: 12
+    },
+    {
+      id: "sample-2",
+      author: "Deniz",
+      initial: "D",
+      country: "Türkiye",
+      topic: "Language",
+      age: "Example story",
+      text: "Some words are hard to translate because the feeling behind them is bigger than the definition. I've started collecting the ones that make me feel understood.",
+      tags: ["Language", "Identity"],
+      sample: true,
+      likes: 8
+    },
+    {
+      id: "sample-3",
+      author: "Amara",
+      initial: "A",
+      country: "Nigeria",
+      topic: "Traditions",
+      age: "Example story",
+      text: "A tradition doesn't have to be a huge celebration. Sometimes it's just a familiar greeting, a song everyone knows, or the same story told at the dinner table.",
+      tags: ["Traditions", "Family"],
+      sample: true,
+      likes: 15
+    }
+  ];
+
+  const emptyState = (title, description, actionLabel, actionPage) => `
+    <div class="empty-state">
+      <h3>${escapeHTML(title)}</h3>
+      <p>${escapeHTML(description)}</p>
+      ${actionLabel ? `<button class="button outline" data-go="${escapeHTML(actionPage)}">${escapeHTML(actionLabel)} ↗</button>` : ""}
+    </div>
+  `;
+
+  function defaultState() {
+    return {
+      storageEnabled: true,
+      culture: {
+        name: "",
+        home: "",
+        languages: "",
+        traditions: "",
+        memory: ""
+      },
+      posts: [],
+      likes: [],
+      capsules: [],
+      settings: {}
+    };
+  }
+
+  function loadState() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return defaultState();
+
+      const parsed = JSON.parse(saved);
+      return {
+        ...defaultState(),
+        ...parsed,
+        culture: { ...defaultState().culture, ...(parsed.culture || {}) },
+        posts: Array.isArray(parsed.posts) ? parsed.posts : [],
+        likes: Array.isArray(parsed.likes) ? parsed.likes : [],
+        capsules: Array.isArray(parsed.capsules) ? parsed.capsules : []
+      };
+    } catch {
+      return defaultState();
+    }
+  }
+
+  let state = loadState();
+
+  function saveState() {
+    if (!state.storageEnabled) return;
+
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {
+      showToast("Couldn't save data. Check your browser's storage settings.");
+    }
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[character]);
+  }
+
+  function safeDate(value) {
+    const date = new Date(value + "T12:00:00");
+    if (Number.isNaN(date.getTime())) return value;
+    return date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+  }
+
+  let toastTimer;
+
+  function showToast(message) {
+    const toast = $("#toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+  }
+
+  function navigate(page) {
+    if (!pageNames[page]) return;
+
+    $$(".page").forEach(section => {
+      section.classList.toggle("active", section.id === "page-" + page);
+    });
+
+    $$(".nav-item").forEach(button => {
+      button.classList.toggle("active", button.dataset.page === page);
+    });
+
+    $("#breadcrumb").textContent = "YOUR SPACE / " + pageNames[page];
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (page === "home") renderHome();
+    if (page === "community") renderCommunity();
+    if (page === "culture") renderCulture();
+    if (page === "capsules") renderCapsules();
+  }
+
+  document.addEventListener("click", event => {
+    const target = event.target.closest("[data-go]");
+    if (target) navigate(target.dataset.go);
+  });
+
+  $$(".nav-item").forEach(button => {
+    button.addEventListener("click", () => navigate(button.dataset.page));
+  });
+
+  $("#quickCapsule").addEventListener("click", () => {
+    navigate("capsules");
+    $("#capsuleTitle").focus();
+  });
+
+  $("#quickSettings").addEventListener("click", () => navigate("settings"));
+
+  // Community feed
+
+  function allPosts() {
+    return [...state.posts].reverse().concat(samplePosts);
+  }
+
+  function renderPost(post) {
+    const liked = state.likes.includes(post.id);
+    const canDelete = !post.sample;
+
+    return `
+      <article class="post">
+        <div class="post-top">
+          <div class="avatar">${escapeHTML(post.initial || post.author?.slice(0, 1) || "?")}</div>
+          <div class="post-top-info">
+            <div class="post-author">${escapeHTML(post.author || "Community member")}</div>
+            <div class="post-meta">${escapeHTML(post.age || "Your story")}</div>
+          </div>
+          <div class="post-country">${escapeHTML(post.country || post.topic || "STORY")}</div>
+        </div>
+        <p class="post-text">${escapeHTML(post.text)}</p>
+        <div class="post-tags">
+          ${(post.tags || [post.topic]).filter(Boolean).map(tag => `<span class="pill">${escapeHTML(tag)}</span>`).join("")}
+        </div>
+        <div class="post-footer">
+          <button class="like-button ${liked ? "liked" : ""}" data-like="${escapeHTML(post.id)}"
+            aria-pressed="${liked}">
+            ${liked ? "♥ Liked" : "♡ Like"} · ${(post.likes || 0) + (liked && !post.sample ? 1 : 0)}
+          </button>
+          <span class="post-meta">${post.sample ? "Example post" : "Saved on this device"}</span>
+          ${canDelete ? `<button class="text-button" data-delete-post="${escapeHTML(post.id)}">Delete</button>` : ""}
+        </div>
+      </article>
+    `;
+  }
+
+  function renderHome() {
+    $("#homeFeed").innerHTML = allPosts().slice(0, 2).map(renderPost).join("");
+    renderProfileMini();
+  }
+
+  function renderCommunity() {
+    const query = $("#communitySearch").value.trim().toLowerCase();
+    const filter = $("#communityFilter").value;
+
+    const filtered = allPosts().filter(post => {
+      const matchesTopic = filter === "all" || post.topic === filter;
+      const searchable = [post.text, post.author, post.country, post.topic, ...(post.tags || [])]
+        .join(" ").toLowerCase();
+      return matchesTopic && searchable.includes(query);
+    });
+
+    $("#communityFeed").innerHTML = filtered.length
+      ? filtered.map(renderPost).join("")
+      : emptyState("No stories found", "Try a different search, or share a story of your own.", "Write a post", "community");
+  }
+
+  $("#communitySearch").addEventListener("input", renderCommunity);
+  $("#communityFilter").addEventListener("change", renderCommunity);
+
+  $("#postForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const text = $("#postText").value.trim();
+    if (!text) return;
+
+    const author = state.culture.name.trim() || "You";
+
+    state.posts.push({
+      id: "post-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+      author,
+      initial: author.slice(0, 1).toUpperCase(),
+      country: $("#postCountry").value.trim(),
+      topic: $("#postTopic").value,
+      age: "Just now",
+      text,
+      tags: [$("#postTopic").value],
+      sample: false,
+      likes: 0
+    });
+
+    saveState();
+    $("#postText").value = "";
+    $("#postCountry").value = "";
+    renderCommunity();
+    showToast("Your post has been saved in this browser.");
+  });
+
+  document.addEventListener("click", event => {
+    const likeButton = event.target.closest("[data-like]");
+
+    if (likeButton) {
+      const id = likeButton.dataset.like;
+      state.likes = state.likes.includes(id)
+        ? state.likes.filter(item => item !== id)
+        : [...state.likes, id];
+
+      saveState();
+      renderHome();
+      renderCommunity();
+      return;
+    }
+
+    const deleteButton = event.target.closest("[data-delete-post]");
+
+    if (deleteButton) {
+      const id = deleteButton.dataset.deletePost;
+      state.posts = state.posts.filter(post => post.id !== id);
+      state.likes = state.likes.filter(item => item !== id);
+      saveState();
+      renderHome();
+      renderCommunity();
+      showToast("Your post was deleted.");
+    }
+  });
+
+  // Cultural profile
+
+  const cultureFieldInfo = [
+    ["Places that feel like home", "home", "Places that feel like home"],
+    ["Languages and expressions", "languages", "Words that connect you"],
+    ["Traditions I want to keep", "traditions", "Traditions worth carrying"],
+    ["A memory that stays with me", "memory", "A piece of your story"]
+  ];
+
+  function renderProfileMini() {
+    const name = state.culture.name.trim() || "Your space";
+    $("#sideName").textContent = name;
+    $("#sideAvatar").textContent = name === "Your space" ? "A" : name.slice(0, 1).toUpperCase();
+  }
+
+  function renderCulture() {
+    const profile = state.culture;
+    const name = profile.name.trim() || "Your story";
+
+    $("#cultureDisplayName").textContent = name;
+    $("#cultureAvatar").textContent = profile.name.trim()
+      ? profile.name.trim().slice(0, 1).toUpperCase()
+      : "Y";
+
+    const filledCount = cultureFieldInfo.filter(([, key]) => profile[key].trim()).length;
+
+    $("#cultureSummary").textContent = filledCount
+      ? `${filledCount} part${filledCount === 1 ? "" : "s"} of your story saved. This profile is personal to you on this device.`
+      : "A place to keep the pieces of your story that you choose to share.";
+
+    $("#cultureFields").innerHTML = cultureFieldInfo.map(([title, key, fallback]) => {
+      const value = profile[key].trim();
+
+      return `
+        <article class="profile-field">
+          <h3>${escapeHTML(title)}</h3>
+          <p>${value ? escapeHTML(value) : escapeHTML(fallback + ". Add your own words when you're ready.")}</p>
+        </article>
+      `;
+    }).join("");
+
+    $("#cultureName").value = profile.name;
+    $("#cultureHome").value = profile.home;
+    $("#cultureLanguages").value = profile.languages;
+    $("#cultureTraditions").value = profile.traditions;
+    $("#cultureMemory").value = profile.memory;
+
+    renderProfileMini();
+  }
+
+  $("#editCulture").addEventListener("click", () => {
+    $("#cultureEditor").hidden = false;
+    $("#cultureName").focus();
+  });
+
+  $("#cancelCulture").addEventListener("click", () => {
+    $("#cultureEditor").hidden = true;
+  });
+
+  $("#cultureForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    state.culture = {
+      name: $("#cultureName").value.trim(),
+      home: $("#cultureHome").value.trim(),
+      languages: $("#cultureLanguages").value.trim(),
+      traditions: $("#cultureTraditions").value.trim(),
+      memory: $("#cultureMemory").value.trim()
+    };
+
+    saveState();
+    renderCulture();
+    $("#cultureEditor").hidden = true;
+    renderHome();
+    renderCommunity();
+    showToast("Your culture profile has been saved.");
+  });
+
+  // Time capsules
+
+  function renderCapsules() {
+    const capsules = [...state.capsules].sort((a, b) => a.openDate.localeCompare(b.openDate));
+    $("#capsuleCount").textContent = String(capsules.length).padStart(2, "0") + " ENTRIES";
+
+    if (!capsules.length) {
+      $("#capsuleList").innerHTML = emptyState(
+        "Nothing tucked away yet",
+        "Your first capsule could be a memory, a hope, or a note to the person you'll become.",
+        "Start writing",
+        "capsules"
+      );
+      return;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    $("#capsuleList").innerHTML = capsules.map(capsule => {
+      const openDate = new Date(capsule.openDate + "T00:00:00");
+      const ready = openDate <= today;
+
+      return `
+        <article class="capsule-item">
+          <div>
+            <div class="mono muted">${ready ? "READY TO REVISIT" : "FOR ANOTHER DAY"}</div>
+            <h3>${escapeHTML(capsule.title)}</h3>
+            <p>${escapeHTML(capsule.text)}</p>
+            <div class="mono muted">CREATED ${escapeHTML(safeDate(capsule.createdAt.slice(0, 10)))}</div>
+            <div class="mono muted" style="margin-top:5px;">REMINDER DATE ${escapeHTML(safeDate(capsule.openDate))}</div>
+            <button class="text-button" style="margin-top:12px;" data-delete-capsule="${escapeHTML(capsule.id)}">Delete capsule</button>
+          </div>
+          <span class="capsule-state">${ready ? "REVISIT" : "SAVED"}</span>
+        </article>
+      `;
+    }).join("");
+  }
+
+  const capsuleDate = $("#capsuleDate");
+  const todayISO = new Date();
+  capsuleDate.min = [
+    todayISO.getFullYear(),
+    String(todayISO.getMonth() + 1).padStart(2, "0"),
+    String(todayISO.getDate()).padStart(2, "0")
+  ].join("-");
+
+  $("#capsuleForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const title = $("#capsuleTitle").value.trim();
+    const text = $("#capsuleText").value.trim();
+    const openDate = $("#capsuleDate").value;
+
+    if (!title || !text || !openDate) return;
+
+    state.capsules.push({
+      id: "capsule-" + Date.now(),
+      title,
+      text,
+      openDate,
+      createdAt: new Date().toISOString()
+    });
+
+    saveState();
+    $("#capsuleTitle").value = "";
+    $("#capsuleText").value = "";
+    $("#capsuleDate").value = "";
+
+    renderCapsules();
+    showToast("Your time capsule has been saved.");
+  });
+
+  document.addEventListener("click", event => {
+    const button = event.target.closest("[data-delete-capsule]");
+    if (!button) return;
+
+    state.capsules = state.capsules.filter(item => item.id !== button.dataset.deleteCapsule);
+    saveState();
+    renderCapsules();
+    showToast("Your capsule has been deleted.");
+  });
+
+  // Translation phrasebook: examples only, not a general translator.
+
+  const phrasebook = {
+    "how are you?": {
+      en: "How are you?",
+      ar: "كيف حالك؟",
+      tr: "Nasılsın?",
+      fr: "Comment vas-tu?"
+    },
+    "thank you": {
+      en: "Thank you",
+      ar: "شكراً لك",
+      tr: "Teşekkür ederim",
+      fr: "Merci"
+    },
+    "i miss home": {
+      en: "I miss home",
+      ar: "أشتاق إلى الوطن",
+      tr: "Evimi özlüyorum",
+      fr: "Le mal du pays me manque."
+    },
+    "it's nice to meet you": {
+      en: "It's nice to meet you",
+      ar: "سعيد بلقائك",
+      tr: "Tanıştığıma memnun oldum",
+      fr: "Ravi de te rencontrer"
+    },
+    "could you help me?": {
+      en: "Could you help me?",
+      ar: "هل يمكنك مساعدتي؟",
+      tr: "Bana yardım edebilir misin?",
+      fr: "Pourriez-vous m'aider ?"
+    }
+  };
+
+  $("#translateButton").addEventListener("click", () => {
+    const text = $("#sourceText").value.trim();
+    const source = $("#sourceLanguage").value;
+    const target = $("#targetLanguage").value;
+
+    if (!text) {
+      showToast("Enter a phrase first.");
+      return;
+    }
+
+    if (source === target) {
+      $("#targetText").value = text;
+      return;
+    }
+
+    const normalized = text.toLowerCase().replace(/\s+/g, " ");
+    const match = Object.values(phrasebook).find(entry =>
+      entry[source]?.toLowerCase() === normalized
+    );
+
+    if (match && match[target]) {
+      $("#targetText").value = match[target];
+      showToast("Found in the example phrasebook.");
+    } else {
+      $("#targetText").value = "";
+      showToast("No matching example. Connect a translation service for general text.");
+    }
+  });
+
+  $("#swapLanguages").addEventListener("click", () => {
+    const source = $("#sourceLanguage");
+    const target = $("#targetLanguage");
+    const oldSource = source.value;
+
+    source.value = target.value;
+    target.value = oldSource;
+
+    const sourceText = $("#sourceText");
+    const targetText = $("#targetText");
+    const oldText = sourceText.value;
+
+    sourceText.value = targetText.value;
+    targetText.value = oldText;
+  });
+
+  $("#copyTranslation").addEventListener("click", async () => {
+    const text = $("#targetText").value;
+
+    if (!text) {
+      showToast("There's no result to copy yet.");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("Copied to clipboard.");
+    } catch {
+      $("#targetText").focus();
+      $("#targetText").select();
+      showToast("Select the text and copy it manually.");
+    }
+  });
+
+  $("#phrasebook").addEventListener("click", event => {
+    const button = event.target.closest("[data-phrase]");
+    if (!button) return;
+
+    $("#sourceText").value = button.dataset.phrase;
+    navigate("translate");
+    $("#sourceText").focus();
+  });
+
+  // Settings: data export and deletion
+
+  const storageToggle = $("#storageToggle");
+
+  function renderStorageToggle() {
+    storageToggle.setAttribute("aria-checked", String(state.storageEnabled));
+  }
+
+  storageToggle.addEventListener("click", () => {
+    if (state.storageEnabled) {
+      const confirmDisable = window.confirm(
+        "Turn off saving? Existing saved data will remain in this browser, but future changes won't be saved. Continue?"
+      );
+
+      if (!confirmDisable) return;
+
+      state.storageEnabled = false;
+      localStorage.removeItem(STORAGE_KEY);
+      renderStorageToggle();
+      showToast("Automatic saving is off. Existing entries remain in memory until you leave or reload.");
+    } else {
+      state.storageEnabled = true;
+      saveState();
+      renderStorageToggle();
+      showToast("Automatic saving is on.");
+    }
+  });
+
+  $("#exportData").addEventListener("click", () => {
+    const exportObject = {
+      exportedAt: new Date().toISOString(),
+      app: "Rooted prototype",
+      data: state
+    };
+
+    const blob = new Blob([JSON.stringify(exportObject, null, 2)], {
+      type: "application/json"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "rooted-my-data.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    showToast("Your data export has been prepared.");
+  });
+
+  $("#deleteData").addEventListener("click", () => {
+    const confirmed = window.confirm(
+      "Delete your personal profile, saved posts, likes, and capsules from this browser? This cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    state = defaultState();
+
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {}
+
+    $("#cultureEditor").hidden = true;
+    renderAll();
+    showToast("Your personal data has been cleared.");
+    navigate("home");
+  });
+
+  function renderAll() {
+    renderHome();
+    renderCommunity();
+    renderCulture();
+    renderCapsules();
+    renderStorageToggle();
+  }
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
